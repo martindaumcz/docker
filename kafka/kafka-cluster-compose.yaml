@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  kafka-1:
+    image: apache/kafka:latest
+    container_name: kafka-1
+    hostname: kafka-1
+    ports:
+      - "9092:9092"
+      - "19092:19092"
+    environment:
+      CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'
+    volumes:
+      - ./props/s1.properties:/etc/kafka/server.properties:ro
+      - ./logs/kafka-1:/var/log/kafka
+    networks:
+      - kafka-network
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions.sh --bootstrap-server localhost:9092 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kafka-2:
+    image: apache/kafka:latest
+    container_name: kafka-2
+    hostname: kafka-2
+    ports:
+      - "9093:9092"
+      - "19093:19093"
+    environment:
+      CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'
+    volumes:
+      - ./props/s2.properties:/etc/kafka/server.properties:ro
+      - ./logs/kafka-2:/var/log/kafka
+    networks:
+      - kafka-network
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions.sh --bootstrap-server localhost:9092 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kafka-3:
+    image: apache/kafka:latest
+    container_name: kafka-3
+    hostname: kafka-3
+    ports:
+      - "9094:9092"
+      - "19094:19094"
+    environment:
+      CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'
+    volumes:
+      - ./props/s3.properties:/etc/kafka/server.properties:ro
+      - ./logs/kafka-3:/var/log/kafka
+    networks:
+      - kafka-network
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions.sh --bootstrap-server localhost:9092 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  kafka-network:
+    driver: bridge
