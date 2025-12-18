@@ -1,2 +1,10 @@
 # nohup
 nohup.out
+
+# Kafka broker data and logs
+kafka/kafka1/data/
+kafka/kafka1/logs/
+kafka/kafka2/data/
+kafka/kafka2/logs/
+kafka/kafka3/data/
+kafka/kafka3/logs/
